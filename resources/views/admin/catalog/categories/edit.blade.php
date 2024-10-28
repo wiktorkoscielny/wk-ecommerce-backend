@@ -31,8 +31,8 @@
         <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Go Back</a>
     </form>
 
-    <!-- Delete Product (Separate form for delete) -->
-    <form action="{{ route('admin.categories.destroy', $product->id) }}" method="POST" style="display:inline;">
+    <!-- Delete Category (Separate form for delete) -->
+    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this category?');">Delete Category</button>

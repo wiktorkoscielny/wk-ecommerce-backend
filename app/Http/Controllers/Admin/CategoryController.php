@@ -40,7 +40,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = Category::whereNull('parent_id')->get();
-        return view('admin.categories.edit', compact('category', 'categories'));
+        return view('admin.catalog.categories.edit', compact('category', 'categories'));
     }
 
     public function update(Request $request, Category $category)
