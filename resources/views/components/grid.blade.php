@@ -1,48 +1,63 @@
-<!-- resources/views/components/grid.blade.php -->
 @props(['headers', 'fields', 'items', 'editRoute', 'deleteRoute', 'bulkDeleteRoute'])
 
-<div>
+<div class="p-6 bg-white rounded-lg shadow-md">
     <!-- Bulk Delete Button -->
     @isset($bulkDeleteRoute)
-        <button id="bulk-delete-btn" class="btn btn-danger">Delete Selected</button>
+        <button id="bulk-delete-btn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mb-4">
+            Delete Selected
+        </button>
     @endisset
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th><input type="checkbox" id="select-all"></th>
-            @foreach ($headers as $header)
-                <th>{{ $header }}</th>
-            @endforeach
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        @if(count($items) === 0)
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
             <tr>
-                <td colspan="{{ count($headers) + 1 }}">No products found.</td>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <input type="checkbox" id="select-all" class="rounded">
+                </th>
+                @foreach ($headers as $header)
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        {{ $header }}
+                    </th>
+                @endforeach
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
-        @else
-            @foreach ($items as $item)
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+
+            @if(count($items) === 0)
                 <tr>
-                    <td><input type="checkbox" name="selected[]" value="{{ $item->id }}" class="item-checkbox"></td>
-                    @foreach ($fields as $field)
-                        <td>{{$item->$field}}</td>
-                    @endforeach
-                    <td>
-                        <a href="{{ route($editRoute, $item->id) }}" class="btn btn-warning">Edit</a>
-                        <form method="POST" action="{{ route($deleteRoute, $item->id) }}" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                    <td colspan="{{ count($headers) + 2 }}" class="px-4 py-2 text-center text-gray-500">
+                        No products found.
                     </td>
                 </tr>
-            @endforeach
-        @endif
-        </tbody>
-    </table>
+            @else
+                @foreach ($items as $item)
+                    <tr>
+                        <td class="px-4 py-2">
+                            <input type="checkbox" name="selected[]" value="{{ $item->id }}" class="item-checkbox rounded">
+                        </td>
+                        @foreach ($fields as $field)
+                            <td class="px-4 py-2 text-gray-700">{{ $item->$field }}</td>
+                        @endforeach
+                        <td class="px-4 py-2 flex space-x-2">
+                            <a href="{{ route($editRoute, $item->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded text-sm">
+                                Edit
+                            </a>
+                            <form method="POST" action="{{ route($deleteRoute, $item->id) }}" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-sm">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
+            </tbody>
+        </table>
+    </div>
 
     <script>
         document.getElementById('select-all').addEventListener('click', function(event) {
@@ -84,6 +99,5 @@
                 alert('Please select at least one item to delete.');
             }
         });
-
     </script>
 </div>
