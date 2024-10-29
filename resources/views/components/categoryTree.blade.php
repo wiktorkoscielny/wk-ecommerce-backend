@@ -8,9 +8,10 @@
             @click="open = !open"
             class="flex items-center justify-center w-8 h-8 bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-900 rounded-full transition duration-150"
             x-show="{{ $category->children->isNotEmpty() ? 'true' : 'false' }}"
+            x-transition
         >
-            <span x-show="!open" class="text-2xl font-bold leading-none">+</span>
-            <span x-show="open" class="text-2xl font-bold leading-none">-</span>
+            <span x-show="!open" x-transition class="text-2xl font-bold leading-none">+</span>
+            <span x-show="open" x-transition class="text-2xl font-bold leading-none">-</span>
         </button>
 
         <!-- Category Name -->
@@ -44,7 +45,7 @@
     </div>
 
     <!-- Child Categories -->
-    <div x-show="open" class="ml-10 pl-6 border-l-2 border-gray-300 space-y-2 transition duration-150">
+    <div x-show="open" x-transition class="ml-10 pl-6 border-l-2 border-gray-300 space-y-2 transition duration-150">
         @foreach ($category->children as $childCategory)
             <x-categoryTree :category="$childCategory" />
         @endforeach

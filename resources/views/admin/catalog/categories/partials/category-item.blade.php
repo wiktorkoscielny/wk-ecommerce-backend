@@ -4,8 +4,8 @@
         <!-- Toggle Button -->
         <button @click="open = !open"
                 class="w-8 h-8 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition duration-150 focus:outline-none">
-            <span x-show="!open" class="text-xl font-bold leading-none">+</span>
-            <span x-show="open" class="text-xl font-bold leading-none">-</span>
+            <span x-show="!open" x-transition class="text-xl font-bold leading-none">+</span>
+            <span x-show="open" x-transition class="text-xl font-bold leading-none">-</span>
         </button>
 
         <!-- Category Name -->
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Child Categories -->
-    <div x-show="open" class="ml-10 mt-2 pl-4 border-l-2 border-gray-300 space-y-2 transition duration-150">
+    <div x-show="open" x-transition class="ml-10 mt-2 pl-4 border-l-2 border-gray-300 space-y-2 transition duration-150">
         @foreach ($category->children as $child)
             @include('admin.catalog.categories.partials.category-item', ['category' => $child])
         @endforeach

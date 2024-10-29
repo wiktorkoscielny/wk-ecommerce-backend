@@ -28,10 +28,10 @@
                     <span x-show="!open">+</span>
                     <span x-show="open">-</span>
                 </button>
-                <div x-show="open" class="ml-4">
-                    <a href="{{ route('admin.products.index') }}" class="block py-1 hover:bg-gray-700 rounded"
+                <div x-show="open" x-transition class="ml-4 flex flex-col gap-2 border-l-[1px] border-gray-300 space-y-2 transition duration-150">
+                    <a href="{{ route('admin.products.index') }}" class="block py-1 hover:bg-gray-700 pl-2 pr-2 rounded"
                        :class="{ 'bg-gray-700': activeTab.includes('admin.products')}">Products</a>
-                    <a href="{{ route('admin.categories.index') }}" class="block py-1 hover:bg-gray-700 rounded"
+                    <a href="{{ route('admin.categories.index') }}" class="block py-1 hover:bg-gray-700 pl-2 pr-2 rounded"
                        :class="{ 'bg-gray-700': activeTab.includes('admin.categories')}">Categories</a>
                 </div>
             </div>
@@ -41,8 +41,8 @@
                     <span x-show="!open">+</span>
                     <span x-show="open">-</span>
                 </button>
-                <div x-show="open" class="ml-4">
-                    <a href="{{ route('admin.customers.index') }}" class="block py-1 hover:bg-gray-700 rounded"
+                <div x-show="open" x-transition class="ml-4 border-l-[1px] border-gray-300 space-y-2 transition duration-150">
+                    <a href="{{ route('admin.customers.index') }}" class="block py-1 hover:bg-gray-700 rounded pl-2 pr-2"
                        :class="{ 'bg-gray-700': activeTab.includes('admin.customers')}">Customers</a>
                 </div>
             </div>
@@ -80,9 +80,26 @@
 </div>
 
 <!-- Footer -->
-<footer class="mt-6 text-center bg-gray-200">
-    <hr>
+<footer class="mt-6 text-center bg-gray-200 py-4">
+    <hr class="mb-2">
     <p>&copy; 2024 Wiktor Koscielny E-commerce Project</p>
+
+    <!-- Version Information -->
+    <div class="text-gray-700 mt-2">
+        <?php
+        $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+        $projectVersion = $composer['version'] ?? 'N/A';
+        $laravelVersion = app()->version();
+        $phpVersion = PHP_VERSION;
+        ?>
+
+        <p class="text-sm">
+            <strong>Version:</strong> {{ $projectVersion }} |
+            <strong>Laravel:</strong> {{ $laravelVersion }} |
+            <strong>PHP:</strong> {{ $phpVersion }}
+        </p>
+    </div>
 </footer>
+
 </body>
 </html>

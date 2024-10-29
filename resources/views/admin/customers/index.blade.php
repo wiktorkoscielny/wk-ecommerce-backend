@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="p-6 bg-gray-100 min-h-screen">
+    <div class="p-6 bg-gray-100">
 
         <!-- Page Title -->
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">Customers</h2>
