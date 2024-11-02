@@ -59,7 +59,7 @@ class DashboardController extends Controller
             'customerCount' => $customerCount,
             'productCount' => $productCount,
             'categoryCount' => $categoryCount,
-            'counts' => $counts,
+            'counts' => json_encode($counts),
         ]);
     }
 }

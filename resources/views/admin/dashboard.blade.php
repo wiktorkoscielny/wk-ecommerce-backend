@@ -32,34 +32,73 @@
                 </div>
             </div>
         </div>
-
         <!-- Toggleable Chart Section -->
         <div class="mt-8 p-6 bg-gray-50 shadow-md rounded-lg"
-             x-data="chartData"
-             x-init="init()">
+             x-data="{
+               dataLabel: '',
+               chartData: [],
+               chartLabel: '',
+               selectedType: '',
+               selectedRange: '',
+               initialData: [],
+               updateConfigByMutating(chart, chartDatasetData, dataLabels = null, chartDatasetLabel = null) {
+                 if (dataLabels) {
+                   chart.data.labels = [dataLabels];
+                 }
+
+                 if (chartDatasetLabel) {
+                   chart.data.datasets[0].label = chartDatasetLabel;
+                 }
+
+                 chart.data.datasets[0].data = chartDatasetData;
+                 chart.update();
+               }
+             }"
+             x-init="
+               initialData = {{$counts}};
+               dataLabel = 'Last 24 Hours';
+               chartData = [initialData['24h']['customers']];
+               chartLabel = 'Customers Registered';
+               selectedType = 'customers';
+               selectedRange = '24h';
+               chart = new Chart(document.getElementById('dashboardChart').getContext('2d'), {
+                 type: 'bar',
+                 data: {
+                   labels: [dataLabel],
+                   datasets: [{
+                     label: chartLabel,
+                     data: chartData,
+                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                     borderColor: 'rgba(255, 99, 132, 1)',
+                     borderWidth: 1
+                   }]
+                 },
+                 options: {}
+               });
+             ">
             <div class="flex justify-between items-center mb-4">
                 <div>
-                    <button @click="selectedType = 'customers'; updateChart()"
+                    <button @click="selectedType = 'customers'"
                             :class="selectedType === 'customers' ? 'bg-blue-500 text-white' : 'bg-gray-200'"
                             class="px-4 py-2 rounded-l">Customers</button>
-                    <button @click="selectedType = 'products'; updateChart()"
+                    <button @click="selectedType = 'products'; updateConfigByMutating(chart,  ,'Products Created')"
                             :class="selectedType === 'products' ? 'bg-green-500 text-white' : 'bg-gray-200'"
                             class="px-4 py-2 rounded-r">Products</button>
                 </div>
                 <div>
-                    <button @click="selectedRange = '24h'; updateChart()"
+                    <button @click="selectedRange = '24h'"
                             :class="selectedRange === '24h' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">24h</button>
-                    <button @click="selectedRange = '7days'; updateChart()"
+                    <button @click="selectedRange = '7days'"
                             :class="selectedRange === '7days' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">7 Days</button>
-                    <button @click="selectedRange = 'month'; updateChart()"
+                    <button @click="selectedRange = 'month'"
                             :class="selectedRange === 'month' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">Month</button>
-                    <button @click="selectedRange = 'year'; updateChart()"
+                    <button @click="selectedRange = 'year'"
                             :class="selectedRange === 'year' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">Year</button>
-                    <button @click="selectedRange = 'overall'; updateChart()"
+                    <button @click="selectedRange = 'overall'"
                             :class="selectedRange === 'overall' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">Overall</button>
                 </div>
@@ -67,7 +106,7 @@
 
             <!-- Chart Container -->
             <div class="relative h-64">
-                <canvas id="dashboardChart"></canvas>
+                <canvas id="dashboardChart" class="w-full h-full"></canvas>
             </div>
         </div>
     </div>
