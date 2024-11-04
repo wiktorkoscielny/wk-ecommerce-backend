@@ -80,7 +80,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="mt-6 text-center bg-gray-200 py-4">
+<footer class="mt-6 text-center bg-gray-200 py-4 ml-0 lg:ml-64">
     <hr class="mb-2">
     <p>&copy; 2024 Wiktor Koscielny E-commerce Project</p>
 

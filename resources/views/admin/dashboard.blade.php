@@ -58,7 +58,7 @@
                initialData = {{$counts}};
                dataLabel = 'Last 24 Hours';
                chartData = [initialData['24h']['customers']];
-               chartLabel = 'Customers Registered';
+               chartLabel = 'customers';
                selectedType = 'customers';
                selectedRange = '24h';
                chart = new Chart(document.getElementById('dashboardChart').getContext('2d'), {
@@ -78,34 +78,34 @@
              ">
             <div class="flex justify-between items-center mb-4">
                 <div>
-                    <button @click="selectedType = 'customers'"
+                    <button @click="selectedType = 'customers'; updateConfigByMutating(chart, [initialData[selectedRange][selectedType]], 'Customers Registered', 'customers');"
                             :class="selectedType === 'customers' ? 'bg-blue-500 text-white' : 'bg-gray-200'"
                             class="px-4 py-2 rounded-l">Customers</button>
-                    <button @click="selectedType = 'products'; updateConfigByMutating(chart,  ,'Products Created')"
+                    <button @click="selectedType = 'products'; updateConfigByMutating(chart, [initialData[selectedRange][selectedType]], 'Products Created', 'products')"
                             :class="selectedType === 'products' ? 'bg-green-500 text-white' : 'bg-gray-200'"
                             class="px-4 py-2 rounded-r">Products</button>
                 </div>
                 <div>
-                    <button @click="selectedRange = '24h'"
+                    <button @click="selectedRange = '24h'; updateConfigByMutating(chart, [initialData[selectedRange][selectedType]]);"
                             :class="selectedRange === '24h' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">24h</button>
-                    <button @click="selectedRange = '7days'"
+                    <button @click="selectedRange = '7days'; updateConfigByMutating(chart, [initialData[selectedRange][selectedType]]);"
                             :class="selectedRange === '7days' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">7 Days</button>
-                    <button @click="selectedRange = 'month'"
+                    <button @click="selectedRange = 'month'; updateConfigByMutating(chart, [initialData[selectedRange][selectedType]]);"
                             :class="selectedRange === 'month' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">Month</button>
-                    <button @click="selectedRange = 'year'"
+                    <button @click="selectedRange = 'year'; updateConfigByMutating(chart, [initialData[selectedRange][selectedType]]);"
                             :class="selectedRange === 'year' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">Year</button>
-                    <button @click="selectedRange = 'overall'"
+                    <button @click="selectedRange = 'overall'; updateConfigByMutating(chart, [initialData[selectedRange][selectedType]]);"
                             :class="selectedRange === 'overall' ? 'bg-gray-800 text-white' : 'bg-gray-200'"
                             class="px-3 py-1 rounded">Overall</button>
                 </div>
             </div>
 
             <!-- Chart Container -->
-            <div class="relative h-64">
+            <div class="relative h-64 flex justify-center">
                 <canvas id="dashboardChart" class="w-full h-full"></canvas>
             </div>
         </div>
