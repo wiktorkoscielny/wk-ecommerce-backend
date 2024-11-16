@@ -1,10 +1,33 @@
 @extends('admin.layouts.app')
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 @section('content')
     <div class="p-6 bg-white shadow-md rounded-lg">
-        <h1 class="text-2xl font-semibold mb-6">Welcome to the Admin Dashboard</h1>
+        <h1 class="text-2xl font-semibold mb-6">Dashboard</h1>
+        <!-- Introductory Section -->
+        <div class="mb-8">
+            <p class="text-lg font-medium text-gray-700">This is the Admin Dashboard, where you can view important metrics and statistics at a glance.</p>
+        </div>
+
+        <!-- Lifetime Sales and Average Order Value Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Lifetime Sales -->
+            <div class="bg-purple-50 border-l-4 border-purple-400 shadow-sm rounded-lg p-4 flex items-center space-x-4">
+                <div>
+                    <h2 class="text-lg font-medium text-purple-700">Lifetime Sales</h2>
+                    <p class="text-3xl font-bold text-purple-800">$1,234,567.89</p>
+                </div>
+            </div>
+
+            <!-- Average Order Value -->
+            <div class="bg-indigo-50 border-l-4 border-indigo-400 shadow-sm rounded-lg p-4 flex items-center space-x-4">
+                <div>
+                    <h2 class="text-lg font-medium text-indigo-700">Average Order Value</h2>
+                    <p class="text-3xl font-bold text-indigo-800">$123.45</p>
+                </div>
+            </div>
+        </div>
 
         <!-- Stats Section -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

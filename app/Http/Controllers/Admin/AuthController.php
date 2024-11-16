@@ -22,22 +22,17 @@ class AuthController extends Controller
      */
     public function login(Request $request): RedirectResponse
     {
-        // Validate login credentials
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        // Attempt to log in using the admin guard
         if (Auth::guard('admin')->attempt($credentials)) {
-            // Regenerate session to prevent session fixation attacks
             $request->session()->regenerate();
 
-            // Redirect to the admin dashboard after successful login
             return redirect()->route('admin.dashboard');
         }
 
-        // If authentication fails, redirect back with an error message
         return back()->withErrors([
             'email' => 'Invalid credentials or admin not found.',
         ])->onlyInput('email');
@@ -48,7 +43,6 @@ class AuthController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
-        // Log the admin user out
         Auth::guard('admin')->logout();
 
         // Invalidate the session

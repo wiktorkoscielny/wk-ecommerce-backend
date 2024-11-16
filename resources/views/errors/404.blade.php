@@ -26,6 +26,5 @@
 <body>
 <h1>404</h1>
 <p>Oops! The page you are looking for could not be found.</p>
-<p><a href="{{ url('/') }}">Go back to homepage</a></p>
 </body>
 </html>
