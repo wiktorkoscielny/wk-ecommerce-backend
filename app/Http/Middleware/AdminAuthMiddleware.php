@@ -24,9 +24,9 @@ class AdminAuthMiddleware
             return $next($request);
         }
 
-        if (!Auth::guard('admin')->check()) {
-            abort(404);
-        }
+//        if (!Auth::guard('admin')->check()) {
+//            abort(404);
+//        }
 
         return $next($request);
     }
